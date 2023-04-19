@@ -9,7 +9,8 @@
 # Tabla de contenido
 1. [Setup inicial](#setup-inicial)
 2. [Definición de rutas](#definición-de-rutas)
-3. [navegación entre rutas](#Navegación-entre-rutas)
+3. [navegación entre rutas](#navegación-entre-rutas)
+4. [Parámetros](#parámetros)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -97,4 +98,33 @@ Vue router nos facilita el componente router-link y con el atributo  ```to``` se
 ```javascript
 <router-link to="/">Home</router-link>
 <router-link to="/about">About</router-link>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Parámetros
+
+Enviar parametros dentro de las urls
+
+1. Declarar la url con la variable despues de dos puntos
+
+```javascript
+{ path: "/chats/:chatId", component: () => import("../views/ChatsView.vue") },
+```
+
+2. Para enviar el valor se puede realizar como una variable
+```javascript
+<RouterLink :to="`/chats/${chat.id}`">{{ chat.name }}</RouterLink>
+```
+
+3. Dentro del componente en el template podemos validar que variables trae el router de la siguiente manera
+```html
+<pre> {{this.$router }}</pre>
+```
+
+4. Capturar los valores que se envia por la url
+```javascript
+{{  this.$router.params.namevariable }}
+
+{{ this.$route.params.chatId }}
 ```
