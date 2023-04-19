@@ -18,6 +18,7 @@
 9. [Componentes y props](#componentes-y-props)
 10. [Modos de historia](#modos-de-historia)
 11. [Guardas de navegación](#guardas-de-navegación)
+12. [Rutas con metadatos](#rutas-con-metadatos)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -374,6 +375,83 @@ router.beforeEach((to, from) => {
     return {name : 'about'}
   }
 
+  return true
+});
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Rutas con metadatos
+
+Si necesitas complementar la seguridad de las rutas por el rol, o por otra validación se utilizarán metadatos de la siguiente manera:
+
+1. Debemos asignarle a la ruta un atributo meta tipo json, el cual tiene una clase llamada ```requiresAuth``` colocarla en true o false, se recomienda que solo se le añada a las rutas que se les pondra true.
+
+```javascript
+{
+  path: "/chats",
+  component: () => import("../views/ChatsView.vue"),
+  meta:{
+    requiresAuth: true
+  },
+  children: [
+    {
+      path: ":chatId",
+      component: () => import("../views/ChatView.vue"),
+      props: (route) => {
+        return {
+          chatId: route.params.chatId
+        }
+      },
+    },
+  ],
+},
+```
+
+2. Para utilizarlo en ```beforeEach``` que es la función donde podemos programar los condicionales de las rutas, se hace de la siguiente manera:
+```javascript
+router.beforeEach((to, from) => {
+
+  if(to.meta?.requiresAuth){
+    console.log(to.path, 'requires auth');
+    return '/session'
+  }
+
+  return true
+});
+```
+
+3. Ejemplo con roles
+
+```javascript
+{
+  path: "/chats",
+  component: () => import("../views/ChatsView.vue"),
+  meta:{
+    requiresAuth: true,
+    roles: ['admin']
+  },
+  children: [
+    {
+      path: ":chatId",
+      component: () => import("../views/ChatView.vue"),
+      props: (route) => {
+        return {
+          chatId: route.params.chatId
+        }
+      },
+    },
+  ],
+},
+```
+
+```javascript
+router.beforeEach((to, from) => {
+
+  if(to.meta?.requiresAuth && to.meta.roles.includes('admin')){
+    console.log(to.path, 'requires auth');
+    return '/session'
+  }
   return true
 });
 ```
