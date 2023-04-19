@@ -5,15 +5,18 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     // { path: '/home', redirect:'/'},
-    { path: "/", component: HomeView, name: "home", alias:'/home' },
+    { path: "/", component: HomeView, name: "home", alias: "/home" },
     {
       path: "/session",
       component: () => import("../views/SessionView.vue"),
       children: [
-        { path: "/session", components:{
-          default: () => import("../views/LoginView.vue"),
-          register: () => import("../views/RegisterView.vue")
-        }}
+        {
+          path: "/session",
+          components: {
+            default: () => import("../views/LoginView.vue"),
+            register: () => import("../views/RegisterView.vue"),
+          },
+        },
       ],
       name: "session",
     },
@@ -29,6 +32,11 @@ const router = createRouter({
         {
           path: ":chatId",
           component: () => import("../views/ChatView.vue"),
+          props: (route) => {
+            return {
+              chatId: route.params.chatId
+            }
+          },
         },
       ],
     },

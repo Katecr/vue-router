@@ -15,6 +15,7 @@
 6. [Navegación programática](#navegación-programática)
 7. [Rutas con nombre](#rutas-con-nombre)
 8. [Redirección y alias](#redirección-y-alias)
+9. [Componentes y props](#componentes-y-props)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -268,3 +269,62 @@ Estas dos son funcionalidades muy utiles porque nos permiten crear una mejor exp
 ```javascript 
 { path: "/", component: HomeView, name: "home", alias:'/home' },
 ``` 
+
+<div style="margin-bottom:50px;"></div>
+
+## Componentes y props
+
+Para reutilizar componente y que no queden ligados a las variables que se reciben por la url, se utilizaran props. Y asi podemos validar si viene el prop realice algo sino reutilice la vista para otra cosa.
+
+> https://router.vuejs.org/guide/essentials/passing-props.html
+
+1. Definimos el prop en el componente que lo utiliza
+```javascript 
+import { toRefs, defineProps } from 'vue';
+
+const props = defineProps({
+  chatId: {
+    type: String,
+    default: ''
+  }
+})
+
+const { chatId } = toRefs(props);
+
+const messagesFiltered = computed(() => {
+    return messages.value.filter((msg) => `${msg.author}` === chatId.value)
+});
+```
+
+2. Le indicamos a la ruta que trabajara con props, y todas las variables que lleguen por la url las enviara con el mismo nombre para ser utilizadas
+
+```javascript 
+{
+      path: "/chats",
+      component: () => import("../views/ChatsView.vue"),
+      children: [
+        {
+          path: ":chatId",
+          component: () => import("../views/ChatView.vue"),
+          props: true,
+        },
+      ],
+    },
+```
+
+3. Por otro lado, se puede declarar directamente que props va a manejar de la siguiente manera:
+
+```javascript
+props: {
+  chatId: '3'
+},
+```
+
+4. También se puede enviar una función
+```javascript
+props: (route) => {
+  return {
+    chatId: route.params.chatId
+  }
+},
+```
