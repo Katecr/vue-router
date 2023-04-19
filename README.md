@@ -11,6 +11,7 @@
 2. [Definición de rutas](#definición-de-rutas)
 3. [navegación entre rutas](#navegación-entre-rutas)
 4. [Parámetros](#parámetros)
+5. [Rutas anidadas](#rutas-anidadas)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -127,4 +128,39 @@ Enviar parametros dentro de las urls
 {{  this.$router.params.namevariable }}
 
 {{ this.$route.params.chatId }}
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Rutas anidadas
+
+Dentro de la ruta padre se utiliza un atributo llamado children, y ya no es necesario en la ruta hija, nombrar al padre
+
+```javascript
+{
+    path: "/chats",
+    component: () => import("../views/ChatsView.vue"),
+    children: [
+    {
+        path: ":chatId",
+        component: () => import("../views/ChatView.vue"),
+    },
+    ],
+},
+```
+
+En el componente padre para mostrar el componente hijo solo basta con añadir un ```RouterView```
+```javascript
+<template>
+  <div>
+    <aside>
+      <div v-for="chat in chats" :key="chat.id">
+        <RouterLink :to="`/chats/${chat.id}`">{{ chat.name }}</RouterLink>
+      </div>
+    </aside>
+    <article>
+      <RouterView></RouterView>
+    </article>
+  </div>
+</template>
 ```

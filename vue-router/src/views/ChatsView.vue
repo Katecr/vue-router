@@ -2,13 +2,11 @@
   <div>
     <aside>
       <div v-for="chat in chats" :key="chat.id">
-        <RouterLink :to="`/chats/${chat.id}`">{{ chat.name }}</RouterLink>
+        <router-link :to="`/chats/${chat.id}`">{{ chat.name }}</router-link>
       </div>
     </aside>
     <article>
-      <h2>
-        {{ this.$route.params.chatId }}
-      </h2>
+      <router-view></router-view>
     </article>
   </div>
 </template>
