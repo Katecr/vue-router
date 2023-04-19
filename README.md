@@ -14,6 +14,7 @@
 5. [Rutas anidadas](#rutas-anidadas)
 6. [Navegación programática](#navegación-programática)
 7. [Rutas con nombre](#rutas-con-nombre)
+8. [Redirección y alias](#redirección-y-alias)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -244,4 +245,26 @@ Vue router nos permite la capacidad de nombrar a las rutas con un nombres que so
     ],
     name: "session",
   },
+``` 
+
+<div style="margin-bottom:50px;"></div>
+
+## Redirección y alias
+
+Estas dos son funcionalidades muy utiles porque nos permiten crear una mejor experiencia de navegación, estrategias de SEO.
+
+1. **Redirección**
+
+```javascript 
+{ path: '/home', redirect:'/'},
+``` 
+
+```javascript 
+{ path: '/home', redirect:'{name: 'home'}'},
+``` 
+
+2. **Alias**
+
+```javascript 
+{ path: "/", component: HomeView, name: "home", alias:'/home' },
 ``` 
