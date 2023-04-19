@@ -164,3 +164,44 @@ En el componente padre para mostrar el componente hijo solo basta con añadir un
   </div>
 </template>
 ```
+
+<div style="margin-bottom:50px;"></div>
+
+## Navegación programática
+
+Este tipo de navegación es utilizada para redireccionar al usuario despues de una acción, sin necesidad de click
+
+```javascript
+import { ref } from 'vue';
+import { useRouter } from "vue-router";
+
+const username = ref(''); 
+const router = useRouter();
+
+const iniciar = () => {
+   router.push({
+	    path: "/chats",
+        query: {
+            variable1: 1,
+        },
+        replace: true,
+   });
+};
+```
+
+```ref``` es una función que nos permite crear una variable reactiva.
+
+```useRouter``` es una función que nos permite acceder a las propiedades de la ruta actual.
+
+```router.push``` es una función que nos permite agregar una nueva ruta al historial de navegación, y se le pueden agregar varios parámetros:
+
+ - ```path``` es la ruta a la que queremos navegar.
+ - ```query``` es un objeto que contiene las variables que queremos pasar a la ruta.
+ - ```replace``` es un booleano que nos permite reemplazar la ruta actual por la nueva ruta.
+
+
+Otras propiedades a las que se puede acceder gracias a router:
+
+```router.replace``` es una función que nos permite reemplazar la ruta actual por una nueva ruta.
+
+```router.go()``` es una función que nos permite navegar hacía atrás o adelante en el historial de navegación. se le pasa como atributo un número, si es negativo va hacia atras, si es positivo va ahcia adelante
