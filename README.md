@@ -16,6 +16,7 @@
 7. [Rutas con nombre](#rutas-con-nombre)
 8. [Redirección y alias](#redirección-y-alias)
 9. [Componentes y props](#componentes-y-props)
+10. [Modos de historia](#modos-de-historia)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -327,4 +328,30 @@ props: (route) => {
     chatId: route.params.chatId
   }
 },
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Modos de historia
+
+Los navegadores web tienen una API en javascript vanilla, que permiten tener el control de el historial de navegación. El servidor existen dos maneras:
+
+1. **Navegación HTML5**: simula ser una ruta del backend pero no lo es.
+
+```javascript
+import { createRouter, createWebHistory } from "vue-router";
+
+const router = createRouter({
+  history: createWebHistory()
+});
+```
+
+2. **Navegación Hash**: este tipo de ruta lo que hace es agregar una almohadilla (#) en la url antes de acceder a la pagina que vamos acceder. 
+
+```javascript
+import { createRouter, createWebHasHistory } from "vue-router";
+
+const router = createRouter({
+  history: createWebHasHistory()
+});
 ```
