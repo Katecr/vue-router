@@ -6,7 +6,6 @@
 
 <script setup>
 import { ref, computed, toRefs, defineProps } from 'vue';
-import { useRoute } from 'vue-router';
 
 const props = defineProps({
   chatId: {
@@ -15,7 +14,7 @@ const props = defineProps({
   }
 });
 
-const route = useRoute();
+
 const { chatId } = toRefs(props);
 
 const messages = ref([

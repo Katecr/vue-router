@@ -19,6 +19,7 @@
 10. [Modos de historia](#modos-de-historia)
 11. [Guardas de navegación](#guardas-de-navegación)
 12. [Rutas con metadatos](#rutas-con-metadatos)
+13. [Obtención de datos](#obtención-de-datos)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -454,4 +455,50 @@ router.beforeEach((to, from) => {
   }
   return true
 });
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Obtención de datos
+
+Para poder detectar cuando cambia la ruta de los componentes en vue
+
+
+Pueden usar la herramienta que nos provee Vue llamada watchEffect(), que básicamente nos permite generar un watcher común y corriente, pero que se genere desde el primer renderizado del componente, sin esperar que cambie el valor de la propiedad observada. Es decir, hacer lo mismo que hacer la opción {inmediate: true} en el options API:
+
+```javascript
+import { watchEffect } from "vue";
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+watchEffect(() => {
+  console.log("params", route.params);
+});
+```
+
+```javascript
+export default {
+  data() {
+    return {
+      chats: [],
+    };
+  },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (val) => {
+        console.log("UpDATE PARMAS", val);
+        this.chats = [
+          { id: 1, name: "Ximena" },
+          { id: 2, name: "Javier" },
+          { id: 3, name: "Teresita" },
+          { id: 4, name: "Jorge" },
+          { id: 5, name: "Ramiro" },
+        ];
+      },
+      { immediate: true }
+    );
+  },
+};
 ```

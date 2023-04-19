@@ -12,7 +12,10 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, watchEffect  } from "vue";
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const chats = reactive([
   { id: 1, name: "Ameth" },
@@ -23,5 +26,9 @@ const chats = reactive([
   { id: 6, name: "Ana" },
   { id: 7, name: "Maria" },
 ]);
+
+watchEffect(() => {
+  console.log("params", route.params);
+});
 
 </script>

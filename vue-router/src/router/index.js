@@ -57,15 +57,15 @@ const router = createRouter({
 
 // navigation guards
 router.beforeEach((to, from) => {
+  console.log(to, from)
+  // if(to.meta?.requiresAuth && to.meta.roles.includes('admin')){
+  //   console.log(to.path, 'requires auth');
+  //   return '/session'
+  // }
 
-  if(to.meta?.requiresAuth && to.meta.roles.includes('admin')){
-    console.log(to.path, 'requires auth');
-    return '/session'
-  }
-
-  if(to.path === '/'){
-    return {name : 'about'}
-  }
+  // if(to.path === '/'){
+  //   return {name : 'about'}
+  // }
   return true
 });
 export default router
