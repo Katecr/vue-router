@@ -43,4 +43,12 @@ const router = createRouter({
   ],
 });
 
+// navigation guards
+router.beforeEach((to, from) => {
+  if(to.path === '/'){
+    return {name : 'about'}
+  }
+
+  return true
+});
 export default router

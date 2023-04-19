@@ -17,6 +17,7 @@
 8. [Redirección y alias](#redirección-y-alias)
 9. [Componentes y props](#componentes-y-props)
 10. [Modos de historia](#modos-de-historia)
+11. [Guardas de navegación](#guardas-de-navegación)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -353,5 +354,26 @@ import { createRouter, createWebHasHistory } from "vue-router";
 
 const router = createRouter({
   history: createWebHasHistory()
+});
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Guardas de navegación
+
+Cuando se necesita aplicar permisos para acceder a una ruta o no, o cualquier tipo de validación.
+
+> https://router.vuejs.org/guide/advanced/navigation-guards.html
+
+
+En el archivo index.js de router, entre la variable de rutas y el exportado creamos la función beforeEach
+
+```javascript
+router.beforeEach((to, from) => {
+  if(to.path === '/'){
+    return {name : 'about'}
+  }
+
+  return true
 });
 ```
