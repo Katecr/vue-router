@@ -12,6 +12,8 @@
 3. [navegación entre rutas](#navegación-entre-rutas)
 4. [Parámetros](#parámetros)
 5. [Rutas anidadas](#rutas-anidadas)
+6. [Navegación programática](#navegación-programática)
+7. [Rutas con nombre](#rutas-con-nombre)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -205,3 +207,41 @@ Otras propiedades a las que se puede acceder gracias a router:
 ```router.replace``` es una función que nos permite reemplazar la ruta actual por una nueva ruta.
 
 ```router.go()``` es una función que nos permite navegar hacía atrás o adelante en el historial de navegación. se le pasa como atributo un número, si es negativo va hacia atras, si es positivo va ahcia adelante
+
+
+<div style="margin-bottom:50px;"></div>
+
+## Rutas con nombre
+
+Vue router nos permite la capacidad de nombrar a las rutas con un nombres que solo será reconocido por el sistema. al igual que las vistas.
+
+1. A la ruta se le agrega el atributo name
+
+```javascript
+{ path: "/", component: HomeView, name:'home' },
+```
+
+```javascript 
+<router-link :to="{ name: 'home'}">Home</router-link>
+<router-link :to="{ name: 'about'}">About</router-link>
+```
+
+2. A la vista se le agrega
+```javascript 
+<router-view name="register" />
+``` 
+
+3. Para tener una ruta con más de un componente se realiza de la siguiente manera:
+```javascript 
+{
+    path: "/session",
+    component: () => import("../views/SessionView.vue"),
+    children: [
+      { path: "/session", components:{
+        default: () => import("../views/LoginView.vue"),
+        register: () => import("../views/RegisterView.vue")
+      }}
+    ],
+    name: "session",
+  },
+``` 
