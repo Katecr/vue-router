@@ -577,3 +577,59 @@ if (stage === 'test') {
 const isTest = import.meta.env.VITE_STAGE === "test"
 </script>
 ```
+
+## Preguntas frecuentes
+
+1. ¿Qué hace Vue Router?
+  - Nos permite crear Single Page Applications con sistema de rutas
+
+2. ¿Cuáles son los modos de historia que acepta Vue Router?
+  - HTML5 y Hash
+
+3. ¿Cuáles son los dos datos mínimos para definir una ruta?
+ - El path y el componente
+
+4. ¿Cuántos parámetros puede contener una URL?
+ - Los que sean necesarios
+
+5. ¿Cuál es el método para crear un modo de historia HTML5?
+  - createWebHistory
+
+6. ¿Cuál es el objeto para acceder a la ruta actual en Options API?
+  - $route
+
+7. ¿Cuál es la palabra para generar redirecciones?
+  - redirect
+
+8. ¿Qué modo de historia se puede usar si el backend no tiene soporte para resolver las rutas?
+  - Hash
+
+9. ¿Cuál es la estrategia para definir múltiples nombres a una ruta?
+  - Alias
+
+10. ¿Qué son los parámetros en Vue Router?
+  - Son variables que podemos recibir en la URL cómo parte de la ruta
+
+11. ¿Cómo se navega con JavaScript utilizando el nombre de una ruta?
+  - $push({name: "nombre"})
+
+12. Además de usar el objeto route, ¿de qué otro modo se pueden recibir los parámetros?
+  - Por medio de props
+
+13. ¿Cuál es el método para navegar usando JavaScript?
+ - push()
+
+14. ¿De qué otro modo podemos detectar los cambios de ruta?
+  - Por medio de watchers en componentes de Vue
+
+15. ¿Con qué funciones podemos acceder a los objetos de Vue Router en Composition API?
+  - useRouter y 
+
+16. ¿Para qué sirven las guardas de navegación?
+  - Para interceptar los cambios de ruta y tomar decisiones al respecto
+
+17. ¿Cuál es la palabra para definir rutas anidadas?
+  - children
+
+18. ¿Es necesario que la carpeta y el archivo de rutas siempre sean iguales?
+  - No, en realidad podemos definirlo cómo queramos, siempre que se configure correctamente y se devuelva lo que la librería espera.
