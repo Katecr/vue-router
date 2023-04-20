@@ -20,6 +20,7 @@
 11. [Guardas de navegación](#guardas-de-navegación)
 12. [Rutas con metadatos](#rutas-con-metadatos)
 13. [Obtención de datos](#obtención-de-datos)
+14. [Coincidencia de rutas](#coincidencia-de-rutas)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -488,7 +489,7 @@ export default {
     this.$watch(
       () => this.$route.params,
       (val) => {
-        console.log("UpDATE PARMAS", val);
+        console.log("UPDATE PARAMS", val);
         this.chats = [
           { id: 1, name: "Ximena" },
           { id: 2, name: "Javier" },
@@ -502,3 +503,40 @@ export default {
   },
 };
 ```
+
+<div style="margin-bottom:50px;"></div>
+
+## Coincidencia de rutas
+
+Cuando tenemos aplicaciones que debemos comenzar a validar una ruta dinamica.
+
+La regla se deben realizar con expresiones regulares 
+
+```javascript
+{
+  path: "/chats",
+  component: () => import("../views/ChatsView.vue"),
+  meta: {
+    requiresAuth: true,
+    roles: ["admin"],
+  },
+  children: [
+    {
+      path: ":chatId(\\d+)",
+      component: () => import("../views/ChatView.vue"),
+      props: (route) => {
+        return {
+          chatId: route.params.chatId,
+        };
+      },
+    },
+  ],
+}
+```
+
+Cuando las rutas no existen se le puede redirigir a una página 404
+```javascript
+{ path: "/404", component: NotFound },
+{ path: "/:catchAll(.*)", redirect: '/404' },
+```
+> recuerda agregar la ruta a un componente
