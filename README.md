@@ -21,6 +21,7 @@
 12. [Rutas con metadatos](#rutas-con-metadatos)
 13. [Obtención de datos](#obtención-de-datos)
 14. [Coincidencia de rutas](#coincidencia-de-rutas)
+15. [Rutas dinámicas](#rutas-dinámicas)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -540,3 +541,39 @@ Cuando las rutas no existen se le puede redirigir a una página 404
 { path: "/:catchAll(.*)", redirect: '/404' },
 ```
 > recuerda agregar la ruta a un componente
+
+
+<div style="margin-bottom:50px;"></div>
+
+## Rutas dinámicas
+
+Algún tipo de validación para mostrar o no rutas a un usuario. Pero no desde el json de rutas sino utilizando programación con javascript. 
+
+1. En la raiz del proyecto se crea un archivo llamado ```.env```. Es el tipo archivo de variables de node.js pero esta vez lo utilizaremos con vite
+
+```javascript
+VITE_STAGE='test'
+```
+
+2. Para acceder a la variable desde el archivo de rutas importamos de la siguiente manera:
+```javascript
+const stage = import.meta.env.VITE_STAGE
+
+if (stage === 'test') {
+  router.addRoute({
+    path: '/profile',
+    component: () => import('../views/ProfileView.vue')
+  });
+}
+```
+
+> este condicional va antes de la función beforeEach()
+
+3. Añadimos una boton para acceder a la ruta y tambien podemos condicionarla:
+```javascript
+<router-link v-if="isTest" to="/profile">Profile</router-link>
+
+<script setup>
+const isTest = import.meta.env.VITE_STAGE === "test"
+</script>
+```
